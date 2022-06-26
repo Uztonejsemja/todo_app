@@ -1,0 +1,50 @@
+.list-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px 0;
+    border-bottom: 1px solid #9d66ca;
+    font-size: 2rem;
+    margin-left: 0;
+    margin-right: auto;
+    color: #7a7585;
+    font-weight: bold;
+}
+
+#todos {
+    background-color: #e8dae4;
+    border: none;
+    font-weight: bold;
+    font-size: 30px;
+    color: #7a7585;
+}
+
+.notes {
+    font-size: 1rem;
+}
+
+.buttons {
+    margin-right: 0;
+    margin-left: auto;
+}
+.btn-complete,
+.btn-delete,
+.btn-edit {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 28px;
+    border-radius: 50%;
+}
+
+.buttons:focus {
+    outline: none;
+} 
+
+.complete {
+    text-decoration-style: solid;
+    text-decoration-line: line-through;
+    text-decoration-color: #ff6c6c;
+    opacity: 0.6;
+}
