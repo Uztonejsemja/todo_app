@@ -3,7 +3,6 @@ import images from "../assets/images"
 import "./TodoList.css"
 
 const TodoList = ({ todos, setTodos, setEditTodo }) => {
-    // const [ todos, setTodos, setEditTodo ] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:5000/todo')
@@ -45,7 +44,6 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
         }}>
             {todos.map((todo) => (
                 <li className="list-item" key={todo.id}> 
-                    {/* <ul className="notes">{todo.note}</ul> */}
                     <input
                         id="todos"
                         type="text"
