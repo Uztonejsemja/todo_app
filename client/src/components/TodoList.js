@@ -3,13 +3,12 @@ import images from "../assets/images"
 import "./TodoList.css"
 
 const TodoList = ({ todos, setTodos, setEditTodo }) => {
-    // const [ todos, setTodos, setEditTodo ] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:5000/todo')
         .then(res => res.json())
         .then(data => setTodos(data))
-    })
+    }, [setTodos])
 
     const handleComplete = (todo) => {
         setTodos(
