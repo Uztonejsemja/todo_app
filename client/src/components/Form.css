@@ -1,0 +1,33 @@
+form {
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+    padding: 25px 25px;
+    border-radius: 10px;
+    background-color: #7a7585;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-input {
+    width: 80%;
+    height: 20;
+    outline: none;
+    background-color: #e8dae4;
+    color: #7a7585;
+    border-radius: 5px;
+    border: 1px solid #aba4b5;
+    font-weight: bold;
+}
+
+.button-add {
+    width: 15%;
+    height: 25;
+    border-radius: 5px;
+    background-color: #e8dae4;
+    border: 1px solid #aba4b5;
+    color: #7a7585;
+    font-weight: bold;
+}

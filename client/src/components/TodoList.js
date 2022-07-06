@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import images from "../assets/images"
 import "./TodoList.css"
 
@@ -11,40 +11,55 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
     }, [setTodos])
 
     const handleComplete = (todo) => {
-        setTodos(
-            todos.map((item) => {
-                if(item.id === todo.id) {
-                    return { ...item, completed: !item.completed };
-                }
-                return item;
-            })
-        );
+        fetch('http://localhost:5000/completed', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ todo })
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTodos(
+                todos.map((item) => {
+                    if(item.id === todo.id) {
+                        return { ...item, completed: !item.completed };
+                    }
+                    return item;
+                })
+            )
+        })
     };
 
     const handleEdit = ({id}) => {
-        const findTodo = todos.find((todo) => todo.id === id);
-        setEditTodo(findTodo);
+        fetch('http://localhost:5000/edit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ id })
+        })
+        .then(res => res.json())
+        .then(data => {
+            const findTodo = todos.find((todo) => todo.id === id);
+            setEditTodo(findTodo);
+        });
     };
 
     const handleDelete = ({id}) => {
-        setTodos(todos.filter((todo) => todo.id !== id));
+        fetch('http://localhost:5000/delete', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ id })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.ok) throw new Error ('Request did not work');
+            const index = todos.findIndex(todo => todo.id !== id);
+            todos.splice(index,1);
+        });
     };
 
-
     return(
-        <div style={{
-            width: '50%',
-            height: 'auto',
-            margin: 'auto',
-            marginTop: '10px',
-            padding: '25px 25px',
-            borderRadius: '10px',
-            backgroundColor: '#e8dae4',
-            border: '2px solid #7a7585'
-        }}>
+        <div className="list" >
             {todos.map((todo) => (
                 <li className="list-item" key={todo.id}> 
-                    {/* <ul className="notes">{todo.note}</ul> */}
                     <input
                         id="todos"
                         type="text"
