@@ -43,7 +43,7 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
     };
 
     const handleDelete = ({id}) => {
-        fetch('http://localhost:5000/delete', {
+        fetch('http://localhost:5000/todo/{id}', {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ id })

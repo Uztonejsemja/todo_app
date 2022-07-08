@@ -24,20 +24,18 @@ app.post('/create', (req, res) => {
         title: req.body.title,
         id: uuid4()
     };
-    loadList.push(newTodo);
-    fs.writeFileSync('/todolist.json', JSON.stringify(loadList, null, 2));
+    let updatedList = loadList.push(newTodo);
+    fs.writeFileSync('/todolist.json', JSON.stringify(updatedList, null, 2));
     res.send({ok: true});
 })
 
-app.delete('/delete', (req, res) => {
+app.delete('/todo/{id}', (req, res) => {
     const id = req.body.id;
-    loadList().find(i => i.id === id);
-    //delete from loadList
-    loadList().splice(id,1);
+    const index = loadList.findIndex(i => i.id === id);
+    let updatedList = loadList.splice(index, 1);
     //update file
-    fs.writeFileSync('/todolist.json', JSON.stringify(loadList, null, 2));
+    fs.writeFileSync('/todolist.json', JSON.stringify(updatedList, null, 2));
     res.send({ ok: true })
 })
-
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
