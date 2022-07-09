@@ -29,12 +29,13 @@ app.post('/create', (req, res) => {
     res.send({ok: true});
 })
 
-app.delete('/todo/{id}', (req, res) => {
-    const id = req.body.id;
-    const index = loadList.findIndex(i => i.id === id);
-    let updatedList = loadList.splice(index, 1);
-    //update file
-    fs.writeFileSync('/todolist.json', JSON.stringify(updatedList, null, 2));
+app.delete('/todo/:id', (req, res) => {
+    const id = req.params.id;
+    const todoList = loadList();
+    const index = todoList.findIndex(i => i.id === id);
+    todoList.splice(index, 1);
+    console.log(todoList);
+    fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ ok: true })
 })
 

@@ -4,11 +4,13 @@ import "./TodoList.css"
 
 const TodoList = ({ todos, setTodos, setEditTodo }) => {
 
-    useEffect(() => {
+    const fetchTodos = () => {
         fetch('http://localhost:5000/todo')
-        .then(res => res.json())
-        .then(data => setTodos(data))
-    }, [setTodos])
+                .then(res => res.json())
+                .then(data => setTodos(data))
+        }
+        
+    useEffect(() => { fetchTodos() }, [setTodos]);
 
     const handleComplete = (todo) => {
         fetch('http://localhost:5000/completed', {
@@ -42,17 +44,15 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
         });
     };
 
-    const handleDelete = ({id}) => {
-        fetch('http://localhost:5000/todo/{id}', {
+    const handleDelete = () => {
+        fetch('http://localhost:5000/todo/:id', {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ id })
+            headers: {'Content-Type': 'application/json'}
         })
         .then(res => res.json())
         .then(data => {
             if (!data.ok) throw new Error ('Request did not work');
-            const index = todos.findIndex(todo => todo.id !== id);
-            todos.splice(index,1);
+            fetchTodos();
         });
     };
 
