@@ -32,16 +32,8 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
     };
 
     const handleEdit = ({id}) => {
-        fetch('http://localhost:5000/edit', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ id })
-        })
-        .then(res => res.json())
-        .then(data => {
-            const findTodo = todos.find((todo) => todo.id === id);
-            setEditTodo(findTodo);
-        });
+        const findTodo = todos.find((todo) => todo.id === id);
+        setEditTodo(findTodo);
     };
 
     const handleDelete = () => {
