@@ -5,6 +5,27 @@ import './Form.css';
 
 const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
 
+    const fetchTodos = () => {
+        fetch('http://localhost:5000/todo')
+                .then(res => res.json())
+                .then(data => setTodos(data))
+        }
+        
+    useEffect(() => { fetchTodos() }, [setTodos]);
+
+    const newTodo = ({title}) => {
+        fetch('http://localhost:5000/create', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({title: input})
+        })
+        .then(res => res.json)
+        .then(data => {
+            fetchTodos();
+            setInput("");
+        })
+    };
+    
     const updateTodo = (title, id, completed) => {
         fetch('http://localhost:5000/create', {
             method: 'POST',
@@ -37,8 +58,7 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
     const onFormSubmit = (event) => {
         event.preventDefault();
         if(!editTodo){
-        setTodos([...todos, {id: uuidv4(), title: input, completed: false}]);
-        setInput("");
+        newTodo({title: input});
     } else {
         updateTodo(input, editTodo.id, editTodo.completed);
     };

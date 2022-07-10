@@ -21,11 +21,13 @@ app.post('/edit', (req, res) => {
 
 app.post('/create', (req, res) => {
     const newTodo = {
-        title: req.body.title,
-        id: uuid4()
+        id: uuid.v4(),
+        title: req.body.title
     };
-    let updatedList = loadList.push(newTodo);
-    fs.writeFileSync('/todolist.json', JSON.stringify(updatedList, null, 2));
+    const todoList = loadList();
+    todoList.push(newTodo);
+    console.log(todoList);
+    fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ok: true});
 })
 
