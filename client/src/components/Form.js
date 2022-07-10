@@ -27,7 +27,7 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
     };
     
     const updateTodo = (title, id, completed) => {
-        fetch('http://localhost:5000/create', {
+        fetch('http://localhost:5000/edit', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ title, id, completed })
