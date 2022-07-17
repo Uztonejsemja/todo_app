@@ -10,14 +10,32 @@ app.use(express.json());
 
 app.get('/todo', (req, res) => {
     res.send(loadList());
-})
+});
 
 app.post('/edit', (req, res) => {
-    res.json({
-        id: req.params.id,
-        title: req.params.title
-    });
+    const editedTodo = {
+        id: req.body.id,
+        title: req.body.title};
+    const todoList = loadList();
+    // const index = todoList.findIndex(i => i.id === id);
+    // todoList.slice(index, 1, editedTodo);
+    console.log(editedTodo);
+    fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
+    res.send({ok: true});
 });
+
+// app.post('/edit', (req, res) => {
+//     const editedTodo = {
+//         id: uuid.v4(),
+//         title: req.body.title
+//     };
+//     const todoList = loadList();
+//     todoList.push(editedTodo);
+//     console.log(todoList);
+//     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
+//     res.send({ok: true});
+// });
+
 
 app.post('/create', (req, res) => {
     const newTodo = {
@@ -29,7 +47,7 @@ app.post('/create', (req, res) => {
     console.log(todoList);
     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ok: true});
-})
+});
 
 app.delete('/todo/:id', (req, res) => {
     const id = req.params.id;
@@ -39,6 +57,6 @@ app.delete('/todo/:id', (req, res) => {
     console.log(todoList);
     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ ok: true })
-})
+});
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
