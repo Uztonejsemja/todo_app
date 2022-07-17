@@ -8,26 +8,26 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
         fetch('http://localhost:5000/todo')
                 .then(res => res.json())
                 .then(data => setTodos(data))
-        }
+    };
         
     useEffect(() => { fetchTodos() }, [setTodos]);
 
-    const handleComplete = (todo) => {
+    const handleComplete = () => {
         fetch('http://localhost:5000/completed', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ todo })
+            headers: {'Content-Type': 'application/json'}
         })
         .then(res => res.json())
         .then(data => {
-            setTodos(
-                todos.map((item) => {
-                    if(item.id === todo.id) {
-                        return { ...item, completed: !item.completed };
-                    }
-                    return item;
-                })
-            )
+            fetchTodos();
+            // setTodos(
+            //     todos.map((item) => {
+            //         if(item.id === todo.id) {
+            //             return { ...item, completed: !item.completed };
+            //         }
+            //         return item;
+            //     })
+            // )
         })
     };
 
