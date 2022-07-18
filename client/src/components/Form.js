@@ -26,9 +26,9 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
         })
     };
     
-    const updateTodo = (title, id) => {
+    const updateTodo = (title, id, completed) => {
         const editedTodo = todos.map((todo) => 
-            todo.id === id ? { title, id} : todo
+            todo.id === id ? { title, id, completed } : todo
         );
         setTodos(editedTodo);
         setEditTodo("");
@@ -56,7 +56,7 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
         fetch('http://localhost:5000/edit', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({title: input, id: editTodo.id})
+            body: JSON.stringify({title: input, id: editTodo.id, completed: editTodo.completed})
         })
         .then(res => res.json)
         .then(data => {

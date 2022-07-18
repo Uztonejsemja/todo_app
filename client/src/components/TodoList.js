@@ -12,23 +12,24 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
         
     useEffect(() => { fetchTodos() }, [setTodos]);
 
-    const handleComplete = () => {
+    const handleComplete = (todo) => {
         fetch('http://localhost:5000/completed', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: todo.id})
         })
         .then(res => res.json())
         .then(data => {
             fetchTodos();
-            // setTodos(
-            //     todos.map((item) => {
-            //         if(item.id === todo.id) {
-            //             return { ...item, completed: !item.completed };
-            //         }
-            //         return item;
-            //     })
-            // )
-        })
+            setTodos(
+                todos.map((item) => {
+                    if(item.id === todo.id) {
+                        return { ...item, completed: !item.completed };
+                    }
+                    return item;
+                })
+            );
+        });
     };
 
     const handleEdit = ({id}) => {
