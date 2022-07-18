@@ -26,31 +26,13 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
         })
     };
     
-    const updateTodo = ({id, title}) => {
-        fetch('http://localhost:5000/edit', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({id: input.id, title: input})
-        })
-        .then(res => res.json)
-        .then(data => {
-        fetchTodos();
+    const updateTodo = (title, id) => {
+        const editedTodo = todos.map((todo) => 
+            todo.id === id ? { title, id} : todo
+        );
+        setTodos(editedTodo);
         setEditTodo("");
-        });
     };
-
-    // const updateTodo = ({title}) => {
-    //     fetch('http://localhost:5000/edit', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({title: input})
-    //     })
-    //     .then(res => res.json)
-    //     .then(data => {
-    //         fetchTodos();
-    //         setEditTodo("");
-    //     });
-    // };
 
     useEffect(() => {
         if (editTodo) {
@@ -70,7 +52,17 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
         if(!editTodo){
         newTodo({title: input});
     } else {
-        updateTodo({title: input});
+        updateTodo(input, editTodo.id);
+        fetch('http://localhost:5000/edit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({title: input, id: editTodo.id})
+        })
+        .then(res => res.json)
+        .then(data => {
+            fetchTodos();
+            setEditTodo("");
+        })
     };
     };
 
