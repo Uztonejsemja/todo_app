@@ -18,7 +18,6 @@ app.put('/completed', (req, res) => {
     const todoList = loadList();
     const index = todoList.findIndex(i => i.id === id);
     todoList[index].completed = !todoList[index].completed;
-    console.log(todoList);
     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ok: true});
 });
@@ -30,7 +29,6 @@ app.post('/edit', (req, res) => {
     const todoList = loadList();
     const index = todoList.findIndex(i => i.id === editedTodo.id);
     todoList.splice(index, 1, editedTodo);
-    console.log(editedTodo);
     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ok: true});
 });
@@ -42,7 +40,6 @@ app.post('/create', (req, res) => {
     };
     const todoList = loadList();
     todoList.push(newTodo);
-    console.log(todoList);
     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ok: true});
 });
@@ -52,7 +49,6 @@ app.delete('/todo/:id', (req, res) => {
     const todoList = loadList();
     const index = todoList.findIndex(i => i.id === id);
     todoList.splice(index, 1);
-    console.log(todoList);
     fs.writeFileSync('todolist.json', JSON.stringify(todoList, null, 2));
     res.send({ ok: true })
 });
