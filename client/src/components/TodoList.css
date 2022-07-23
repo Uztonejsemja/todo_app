@@ -1,3 +1,14 @@
+.list {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background-color: #e8dae4;
+    border: 2px solid #7a7585;
+}
+
 .list-item {
     display: flex;
     flex-direction: column;

@@ -25,7 +25,9 @@ app.put('/completed', (req, res) => {
 app.post('/edit', (req, res) => {
     const editedTodo = {
         id: req.body.id,
-        title: req.body.title};
+        title: req.body.title,
+        completed: req.body.completed
+    };
     const todoList = loadList();
     const index = todoList.findIndex(i => i.id === editedTodo.id);
     todoList.splice(index, 1, editedTodo);
@@ -36,7 +38,8 @@ app.post('/edit', (req, res) => {
 app.post('/create', (req, res) => {
     const newTodo = {
         id: uuid.v4(),
-        title: req.body.title
+        title: req.body.title,
+        completed: false
     };
     const todoList = loadList();
     todoList.push(newTodo);
