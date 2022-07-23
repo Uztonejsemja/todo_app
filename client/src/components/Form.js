@@ -2,24 +2,17 @@ import { useEffect } from "react";
 import './Form.css';
 
 
-const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
+const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo, fetchTodos }) => {
 
-    const fetchTodos = () => {
-        fetch('http://localhost:5000/todo')
-                .then(res => res.json())
-                .then(data => setTodos(data))
-        }
-        
-    useEffect(() => { fetchTodos() }, [setTodos]);
-
-    const newTodo = ({title}) => {
+    const newTodo = () => {
         fetch('http://localhost:5000/create', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({title: input})
         })
-        .then(res => res.json)
+        .then(res => res.json())
         .then(data => {
+            if (!data.ok) throw new Error ('Request did not work');
             fetchTodos();
             setInput("");
         })
@@ -57,8 +50,9 @@ const Form = ({ input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({title: input, id: editTodo.id, completed: editTodo.completed})
         })
-        .then(res => res.json)
+        .then(res => res.json())
         .then(data => {
+            if (!data.ok) throw new Error ('Request did not work');
             fetchTodos();
             setEditTodo("");
         })

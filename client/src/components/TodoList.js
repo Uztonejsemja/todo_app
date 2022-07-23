@@ -1,16 +1,7 @@
-import { useEffect } from 'react';
 import images from "../assets/images"
 import "./TodoList.css"
 
-const TodoList = ({ todos, setTodos, setEditTodo }) => {
-
-    const fetchTodos = () => {
-        fetch('http://localhost:5000/todo')
-                .then(res => res.json())
-                .then(data => setTodos(data))
-    };
-        
-    useEffect(() => { fetchTodos() }, [setTodos]);
+const TodoList = ({ todos, setTodos, setEditTodo, fetchTodos }) => {
 
     const handleComplete = (todo) => {
         fetch('http://localhost:5000/completed', {
@@ -20,6 +11,7 @@ const TodoList = ({ todos, setTodos, setEditTodo }) => {
         })
         .then(res => res.json())
         .then(data => {
+            if (!data.ok) throw new Error ('Request did not work');
             fetchTodos();
             setTodos(
                 todos.map((item) => {
