@@ -1,5 +1,5 @@
 .list {
-    width: 50%;
+    width: 52%;
     height: auto;
     margin: auto;
     margin-top: 10px;
@@ -23,15 +23,16 @@
 }
 
 #todos {
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
     background-color: #e8dae4;
     border: none;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
     color: #7a7585;
-}
-
-.notes {
-    font-size: 1rem;
+    overflow: auto;
 }
 
 .buttons {
@@ -45,7 +46,7 @@
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    font-size: 28px;
+    font-size: 2px;
     border-radius: 50%;
 }
 
@@ -58,4 +59,14 @@
     text-decoration-line: line-through;
     text-decoration-color: #9d66ca;
     opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+    .list {
+        width: 100%;
+        padding: 25px 25px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
 }

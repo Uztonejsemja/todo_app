@@ -18,3 +18,10 @@ h1 {
     font-weight: bold;
 }
 
+@media (max-width: 600px) {
+    header {
+        width: 100%;
+        border-radius: 0px;
+    }
+}
+

@@ -31,3 +31,10 @@ form {
     color: #7a7585;
     font-weight: bold;
 }
+
+@media (max-width: 600px) {
+    form {
+        width: 100%;
+        border-radius: 0px
+    }
+}

@@ -4,16 +4,8 @@ import "./TodoList.css"
 
 const TodoList = ({ todos, setTodos, setEditTodo, fetchTodos }) => {
 
-    // const fetchTodos = () => {
-    //     fetch('http://localhost:5000/todo')
-    //             .then(res => res.json())
-    //             .then(data => setTodos(data))
-    // };
-        
-    // useEffect(() => { fetchTodos() }, [setTodos]);
-
     const handleComplete = (todo) => {
-        fetch('http://localhost:5000/completed', {
+        fetch('http://localhost:5000/completed/:id', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({id: todo.id})
@@ -38,10 +30,11 @@ const TodoList = ({ todos, setTodos, setEditTodo, fetchTodos }) => {
         setEditTodo(findTodo);
     };
 
-    const handleDelete = () => {
+    const handleDelete = ({id}) => {
         fetch('http://localhost:5000/todo/:id', {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id})
         })
         .then(res => res.json())
         .then(data => {
@@ -55,10 +48,11 @@ const TodoList = ({ todos, setTodos, setEditTodo, fetchTodos }) => {
             {todos.map((todo) => (
                 <li className="list-item" key={todo.id}> 
                     <input
+                        disabled
                         id="todos"
                         type="text"
                         value={todo.title}
-                        className={`list ${todo.completed ? "complete" : ""}`}
+                        className={`${todo.completed ? "complete" : ""}`}
                         onChange={(event) => event.preventDefault()}
                     /> 
                      <div className="buttons">
