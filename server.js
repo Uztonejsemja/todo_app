@@ -13,7 +13,7 @@ app.get('/todo', (req, res) => {
     res.send(loadList());
 });
 
-app.put('/completed', (req, res) => {
+app.put('/completed/:id', (req, res) => {
     const id = req.body.id;
     const todoList = loadList();
     const index = todoList.findIndex(i => i.id === id);
@@ -22,7 +22,7 @@ app.put('/completed', (req, res) => {
     res.send({ok: true});
 });
 
-app.post('/edit', (req, res) => {
+app.post('/edit/:id', (req, res) => {
     const editedTodo = {
         id: req.body.id,
         title: req.body.title,
@@ -48,7 +48,7 @@ app.post('/create', (req, res) => {
 });
 
 app.delete('/todo/:id', (req, res) => {
-    const id = req.params.id;
+    const id = req.body.id;
     const todoList = loadList();
     const index = todoList.findIndex(i => i.id === id);
     todoList.splice(index, 1);
