@@ -9,6 +9,6 @@ const Header = () => {
             <img src={ images.note } alt="noteImg"/>
         </header>
     )
-}
+};
 
 export default Header;
